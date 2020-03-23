@@ -280,7 +280,7 @@ class Attributes (dict):
 		# XXX: something a little bit smaller memory wise ?
 		if not self._idx:
 			idx = ''.join(self._generate_text())
-			nexthop = str(self.get(Attribute.CODE.NEXT_HOP,''))
+			nexthop = str(self.get(Attribute.CODE.NEXT_HOP,b''))
 			self._idx = '%s next-hop %s' % (idx,nexthop) if nexthop else idx
 		return self._idx
 

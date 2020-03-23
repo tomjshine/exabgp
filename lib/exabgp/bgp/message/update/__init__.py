@@ -268,14 +268,4 @@ class Update (Message):
 				return EOR(reach.afi,reach.safi)
 			raise RuntimeError('This was not expected')
 
-		update = Update(nlris, attributes)
-
-		def parsed (_):
-			# we need the import in the function as otherwise we have an cyclic loop
-			# as this function currently uses Update..
-			from exabgp.reactor.api.response import Response
-			from exabgp.version import json as json_version
-			return 'json %s' % Response.JSON(json_version).update(negotiated.neighbor, 'in', update, None, '', '')
-		logger.debug(LazyFormat('decoded UPDATE', '', parsed), 'parser')
-
-		return update
+		return Update(nlris,attributes)

@@ -250,24 +250,14 @@ def atomic_aggregate (tokeniser):
 
 
 def aggregator (tokeniser):
-	agg = tokeniser()
-	eat = True if agg == '(' else False
+	first = tokeniser.peek()
+	eat = True if first == '(' else False
 
 	if eat:
-		agg = tokeniser()
-		if agg.endswith(')'):
-			eat = False
-			agg = agg[:-1]
-	elif agg.startswith('('):
-		if agg.endswith(')'):
-			eat = False
-			agg = agg[1:-1]
-		else:
-			eat = True
-			agg = agg[1:]
+		tokeniser()
 
 	try:
-		as_number, address = agg.split(':')
+		as_number,address = tokeniser().split(':')
 		local_as = ASN.from_string(as_number)
 		local_address = RouterID(address)
 	except (ValueError,IndexError):
